@@ -9,7 +9,8 @@ class BinarySearch:
     def get_array_print_string(self, indices_to_point=None):
         idx_string = '\t'.join([str(idx) for idx in range(len(self.array))])
         elem_string = '\t'.join([str(elem) for elem in self.array])
-        ptr_string = '\t'.join(['|' if indices_to_point is not None and idx in indices_to_point else ' ' for idx in range(len(self.array))])
+        ptr_string = '\t'.join(['|' if indices_to_point is not None and idx in indices_to_point else ' '
+                                for idx in range(len(self.array))])
         return '\n'.join([idx_string, elem_string, ptr_string])
 
     def find(self, element, verbose=False):
@@ -33,21 +34,19 @@ class BinarySearch:
 
         return -1
 
-    def find_highest_lower_than(self, value, verbose=False):
-        return
 
+if __name__ == "__main__":
+    arr = [0, 1, 4, 7, 8, 9, 14, 19, 22, 28, 38, 46, 47, 48]
+    bs_obj = BinarySearch(arr)
 
-array = [0,1,4,7,8,9,14,19,22,28,38,46,47,48]
-bs_obj = BinarySearch(array)
+    print('\t'.join([str(idx) for idx in range(len(arr))]))
+    print('\t'.join([str(elem) for elem in arr]))
+    print('\n')
 
-print('\t'.join([str(idx) for idx in range(len(array))]))
-print('\t'.join([str(elem) for elem in array]))
-print('\n')
+    elem = 14
 
-element = 10
-idx = bs_obj.find(element, True)
-
-if idx == -1:
-    print(f"{element} not found")
-else:
-    print(f"{element} found at idx = {idx}")
+    idx = bs_obj.find(elem, True)
+    if idx == -1:
+        print(f"{elem} not found")
+    else:
+        print(f"{elem} found at idx = {idx}")
