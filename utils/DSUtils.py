@@ -26,6 +26,37 @@ def print_2d_matrix(matrix, val_print_map=None, sep='\t', print_vertical_edges=F
     return
 
 
+def get_array_print_string(array, indices_to_point=None, print_indices=False):
+    idx_string = '\t'.join([str(idx) for idx in range(len(array))])
+    elem_string = '\t'.join([str(elem) for elem in array])
+    ptr_string = '\t'.join(['|' if indices_to_point is not None and idx in indices_to_point else ' '
+                            for idx in range(len(array))])
+    if print_indices:
+        return '\n'.join([idx_string, elem_string, ptr_string])
+    else:
+        return '\n'.join([elem_string, ptr_string])
+
+
+def is_sorted(array, start=None, end=None):
+    if len(array) == 0:
+        return True
+
+    if start is None:
+        start = 0
+    else:
+        assert 0 <= start <= len(array) - 1, "Provide start index between 0 and len(array) - 1"
+    if end is None:
+        end = len(array) - 1
+    else:
+        assert 0 <= end <= len(array) - 1, "Provide end index between 0 and len(array) - 1"
+
+    for idx in range(start, end):
+        if array[idx] > array[idx + 1]:
+            return False
+
+    return True
+
+
 if __name__ == "__main__":
     n = 10
     mat = list()
