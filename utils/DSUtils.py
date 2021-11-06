@@ -50,6 +50,8 @@ def is_sorted(array, start=None, end=None):
     else:
         assert 0 <= end <= len(array) - 1, "Provide end index between 0 and len(array) - 1"
 
+    assert start <= end, "Provide start less than end"
+
     for idx in range(start, end):
         if array[idx] > array[idx + 1]:
             return False
