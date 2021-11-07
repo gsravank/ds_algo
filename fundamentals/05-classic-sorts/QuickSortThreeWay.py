@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import time
 from utils.DSUtils import get_array_print_string, is_sorted
 from tqdm import tqdm
+from QuickSort import QuickSort
 
 
 class QuickSortThreeWay:
@@ -14,9 +15,9 @@ class QuickSortThreeWay:
     def sort(array):
         # Shuffle the array
         random.shuffle(array)
-        print('\n=======\n')
-        print(array)
-        print('\n=======\n')
+        # print('\n=======\n')
+        # print(array)
+        # print('\n=======\n')
 
         # Sort from start to end
         QuickSortThreeWay._sort(array, 0, len(array) - 1)
@@ -49,10 +50,10 @@ class QuickSortThreeWay:
         if high <= low:
             return
 
-        print(get_array_print_string(array, [low, high], False))
+        # print(get_array_print_string(array, [low, high], False))
         left_pivot, right_pivot = QuickSortThreeWay._partition(array, low, high)
-        print(get_array_print_string(array, [low, left_pivot, right_pivot, high], False))
-        print('\n')
+        # print(get_array_print_string(array, [low, left_pivot, right_pivot, high], False))
+        # print('\n')
         QuickSortThreeWay._sort(array, low, left_pivot - 1)
         QuickSortThreeWay._sort(array, right_pivot + 1, high)
 
@@ -66,8 +67,8 @@ class QuickSortThreeWay:
 if __name__ == "__main__":
     # items = [0 for _ in range(10)] + [1 for _ in range(10)] + [2 for _ in range(11)]
     items = list()
-    for _ in range(32):
-        curr = random.randint(1, 4)
+    for _ in range(64):
+        curr = random.randint(1, 5)
         items.append(curr)
     random.shuffle(items)
     # items = [1] + items
@@ -81,3 +82,11 @@ if __name__ == "__main__":
     print('\n=========\n')
     print(items)
     print(is_sorted(items))
+    print('\n=========\n')
+
+    # QuickSort.sort(items)
+    # print('\n=========\n')
+    # print(items)
+    # print(is_sorted(items))
+    # print('\n=========\n')
+
