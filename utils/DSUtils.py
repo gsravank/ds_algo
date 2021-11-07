@@ -1,3 +1,4 @@
+import math
 import random
 
 
@@ -59,13 +60,44 @@ def is_sorted(array, start=None, end=None):
     return True
 
 
-if __name__ == "__main__":
-    n = 10
-    mat = list()
-    for _ in range(n):
-        curr_list = list()
-        for _ in range(n):
-            curr_list.append(random.randint(0, 1))
-        mat.append(curr_list)
+def _fill_element_in_print_strings(height, idx, array, curr_row, curr_col, print_strings):
+    print_strings[curr_row][curr_col] = str(array[idx])
 
-    print_2d_matrix(mat, None, ' | ', True, False)
+    left_child = 2 * idx + 1
+    right_child = 2 * idx + 2
+
+    if left_child < len(array):
+        _fill_element_in_print_strings(height, left_child, array, curr_row + 1, curr_col - 2**(height - curr_row - 1), print_strings)
+    if right_child < len(array):
+        _fill_element_in_print_strings(height, right_child, array, curr_row + 1, curr_col + 2**(height - curr_row - 1), print_strings)
+
+    return
+
+
+def get_array_print_string_as_complete_binary_tree(array):
+    n = len(array)
+    h = int(math.log2(n)) + 1
+
+    num_rows = h
+    num_cols = (2 ** num_rows) - 1
+
+    print_strings = [["" for _ in range(num_cols)] for _ in range(num_rows)]
+
+    _fill_element_in_print_strings(h - 1, 0, array, 0, int((num_cols - 1) / 2), print_strings)
+
+    return '\n'.join(['\t'.join(each_row) for each_row in print_strings])
+
+
+if __name__ == "__main__":
+    # n = 10
+    # mat = list()
+    # for _ in range(n):
+    #     curr_list = list()
+    #     for _ in range(n):
+    #         curr_list.append(random.randint(0, 1))
+    #     mat.append(curr_list)
+
+    # print_2d_matrix(mat, None, ' | ', True, False)
+    items = list(range(15))
+    print(get_array_print_string_as_complete_binary_tree(items))
+
