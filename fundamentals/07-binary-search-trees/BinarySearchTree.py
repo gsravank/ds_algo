@@ -1,4 +1,5 @@
 from utils.DSUtils import print_tree
+import os
 import random
 
 
@@ -173,8 +174,13 @@ if __name__ == "__main__":
     random.shuffle(items)
     print(items)
 
-    for item in items:
+    for idx, item in enumerate(items):
         bst.insert_rec(item)
+        print(f"N = {idx + 1}\nHeight: {bst.assign_heights()}\n")
+        print_tree(bst.root, 'key')
+        input()
+        os.system('clear')
+        os.system("printf '\033c'")
 
     print_tree(bst.root, 'key')
     print(f"Height: {bst.assign_heights()}")
