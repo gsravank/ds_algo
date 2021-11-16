@@ -152,13 +152,13 @@ class RedBlackBST:
 
 if __name__ == "__main__":
     bst = RedBlackBST()
-    # items = sorted(random.sample(list(range(100)), 31))
+    # items = sorted(random.sample(list(range(100)), 63))[::-1]
     items = random.sample(list(range(100)), 31)
 
     for idx in range(len(items)):
         item = items[idx]
         _ = os.system('clear')
-        bst.print()
+        # bst.print()
         print(f"Items so far: {' '.join([str(x) for x in items[:idx]])}")
         print(f"Current item: {items[idx]}")
         print(f"Next items: {' '.join([str(x) for x in items[idx + 1:]])}")
