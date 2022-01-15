@@ -43,10 +43,11 @@ class DiGraph:
                 strings.append(f"{v}-{w}")
         return '\n'.join(strings)
 
-    def _get_circle_points(self, center, radius, num_points):
+    @staticmethod
+    def _get_circle_points(center, radius, num_points, start_angle=0):
         points = list()
         for idx in range(num_points):
-            angle = 2.0 * math.pi * idx / num_points
+            angle = start_angle + (2.0 * math.pi * idx / num_points)
             x = center[0] + (radius * math.cos(angle))
             y = center[1] + (radius * math.sin(angle))
             points.append((x, y))
@@ -58,6 +59,7 @@ class DiGraph:
 
         vertex_point_map = dict()
         sorted_vertices = sorted(list(range(self.number_of_vertices)), key=lambda v: len(self.adjacency_list[v]))
+        sorted_vertices = list(range(self.number_of_vertices))
         points = self._get_circle_points([0.5, 0.5], 0.4, self.number_of_vertices)
 
         vertex_point_map = dict(zip(sorted_vertices, points))
@@ -65,13 +67,17 @@ class DiGraph:
         self.vertex_point_map = vertex_point_map
         return
 
-    def plot(self, ax, marker='o', vcolor='b', ecolor='b', vertex_point_map=None):
+    def plot(self, ax, marker='o', vcolor='b', ecolor='b', vertex_point_map=None, texts=None):
         if vertex_point_map is None:
             self._generate_vertex_point_map()
+        else:
+            self.vertex_point_map = vertex_point_map
+        if texts is None:
+            texts = list(range(self.number_of_vertices))
 
         for v in range(self.number_of_vertices):
             plot_point_ax(ax, self.vertex_point_map[v][0], self.vertex_point_map[v][1], marker, vcolor)
-            plot_text_ax(ax, self.vertex_point_map[v][0], self.vertex_point_map[v][1] + 0.02, str(v))
+            plot_text_ax(ax, self.vertex_point_map[v][0], self.vertex_point_map[v][1] + 0.02, str(texts[v]))
             for w in self.adjacency_list[v]:
                 plot_line_ax(ax, self.vertex_point_map[v][0], self.vertex_point_map[v][1], self.vertex_point_map[w][0],
                              self.vertex_point_map[w][1], ecolor)
