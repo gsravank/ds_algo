@@ -1,16 +1,32 @@
-# This is a sample Python script.
+import math
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+def lis(nums, k=math.inf):
+    tails = [0] * len(nums)
+    size = 0
+    for x in nums:
+        i, j = 0, size
+        while i != j:
+            m = (i + j) // 2
+            if tails[m] < x:
+                i = m + 1
+            else:
+                j = m
+        if tails[i] == 0:
+            if i == 0:
+                tails[i] = x
+                size = max(i + 1, size)
+            else:
+                if x - tails[i-1] <= k:
+                    tails[i] = x
+                    size = max(i + 1, size)
+        else:
+            tails[i] = x
+            size = max(i + 1, size)
 
+        #        tails[i] = x
+#        size = max(i + 1, size)
+        print(tails, size)
+    return size
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+arr = [1,3,3,4]
+print(lis(arr, 1))
